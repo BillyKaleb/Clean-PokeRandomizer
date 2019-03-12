@@ -1,4 +1,4 @@
-package com.example.clean_pokerandomizer;
+package com.kaleb.clean_pokerandomizer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
