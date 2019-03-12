@@ -35,8 +35,8 @@ dependencies {
     implementation presentationDependencies.constraintLayout
 
     // Library
-    annotationProcessor presentationDependencies.daggerCompiler
     implementation presentationDependencies.dagger
+    annotationProcessor presentationDependencies.daggerCompiler
     annotationProcessor presentationDependencies.butterKnifeCompiler
     implementation presentationDependencies.butterKnife
     implementation presentationDependencies.rxJava

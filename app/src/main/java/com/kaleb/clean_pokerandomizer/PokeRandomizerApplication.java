@@ -1,5 +1,12 @@
 package com.kaleb.clean_pokerandomizer;
 
+import com.kaleb.clean_pokerandomizer.di.ComponentHolder;
+import com.kaleb.clean_pokerandomizer.di.components.ApplicationComponent;
+import com.kaleb.clean_pokerandomizer.di.components.DaggerApplicationComponent;
+import com.kaleb.clean_pokerandomizer.di.modules.ApiModule;
+import com.kaleb.clean_pokerandomizer.di.modules.ApplicationModule;
+import com.kaleb.clean_pokerandomizer.di.modules.NetworkModule;
+
 import android.app.Application;
 
 /**
@@ -8,10 +15,30 @@ import android.app.Application;
  */
 public class PokeRandomizerApplication extends Application {
 
+    private ApplicationComponent applicationComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        initInjector();
     }
 
+    private void initInjector() {
+        if (applicationComponent == null) {
+            applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .networkModule(new NetworkModule())
+                .apiModule(new ApiModule())
+                .build();
+        }
+        applicationComponent.inject(this);
+
+        ComponentHolder.set(applicationComponent);
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
+    }
 
 }
