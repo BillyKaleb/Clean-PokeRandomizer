@@ -1,7 +1,7 @@
 package com.kaleb.data.main.repository.source.network;
 
 import com.kaleb.data.main.repository.source.MainEntityData;
-import com.kaleb.data.main.repository.source.model.result.MainResult;
+import com.kaleb.data.main.repository.source.model.result.PokeResult;
 
 import io.reactivex.Observable;
 
@@ -11,8 +11,14 @@ import io.reactivex.Observable;
  */
 public class NetworkMainEntityData implements MainEntityData {
 
+    private final MainAPI mainAPI;
+
+    public NetworkMainEntityData(MainAPI mainAPI) {
+        this.mainAPI = mainAPI;
+    }
+
     @Override
-    public Observable<MainResult> observableMock() {
-        return null;
+    public Observable<PokeResult> observablePokemon() {
+        return mainAPI.getPokemon(50).toObservable();
     }
 }

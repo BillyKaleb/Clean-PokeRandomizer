@@ -1,6 +1,6 @@
 package com.kaleb.data.main.repository.source;
 
-import com.kaleb.data.main.repository.source.model.result.MainResult;
+import com.kaleb.data.main.repository.source.model.result.PokeResult;
 
 import io.reactivex.Observable;
 
@@ -10,5 +10,5 @@ import io.reactivex.Observable;
  */
 public interface MainEntityData {
 
-    Observable<MainResult> observableMock();
+    Observable<PokeResult> observablePokemon();
 }

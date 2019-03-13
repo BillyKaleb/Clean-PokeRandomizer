@@ -45,8 +45,8 @@ public class MainPresenter implements MainContract.Presenter {
         return new DefaultObserver<PokemonResponse>() {
             @Override
             public void onNext(PokemonResponse pokemonResponse) {
-                if (pokemonResponse.getHelloWorld() != null) {
-                    view.setText(pokemonResponse.getHelloWorld());
+                if (pokemonResponse.getPokemonName() != null) {
+                    view.setText(pokemonResponse.getPokemonName());
                 }
             }
 

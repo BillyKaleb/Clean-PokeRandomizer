@@ -6,13 +6,53 @@ package com.kaleb.domain.main.model;
  */
 public class PokemonResponse {
 
-    private String helloWorld;
+    private String pokemonFrontLookSprite;
 
-    public String getHelloWorld() {
-        return helloWorld;
+    private int pokemonHeight;
+
+    private int pokemonId;
+
+    private String pokemonName;
+
+    private int pokemonWeight;
+
+    public String getPokemonFrontLookSprite() {
+        return pokemonFrontLookSprite;
     }
 
-    public void setHelloWorld(String helloWorld) {
-        this.helloWorld = helloWorld;
+    public void setPokemonFrontLookSprite(String pokemonFrontLookSprite) {
+        this.pokemonFrontLookSprite = pokemonFrontLookSprite;
+    }
+
+    public int getPokemonHeight() {
+        return pokemonHeight;
+    }
+
+    public void setPokemonHeight(int pokemonHeight) {
+        this.pokemonHeight = pokemonHeight;
+    }
+
+    public int getPokemonId() {
+        return pokemonId;
+    }
+
+    public void setPokemonId(int pokemonId) {
+        this.pokemonId = pokemonId;
+    }
+
+    public String getPokemonName() {
+        return pokemonName;
+    }
+
+    public void setPokemonName(String pokemonName) {
+        this.pokemonName = pokemonName;
+    }
+
+    public int getPokemonWeight() {
+        return pokemonWeight;
+    }
+
+    public void setPokemonWeight(int pokemonWeight) {
+        this.pokemonWeight = pokemonWeight;
     }
 }

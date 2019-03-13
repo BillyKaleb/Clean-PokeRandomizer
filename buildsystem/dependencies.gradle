@@ -61,15 +61,16 @@ ext {
     ]
 
     dataDependencies = [
-            daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
-            dagger        : "com.google.dagger:dagger:${daggerVersion}",
-            rxJava        : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            rxAndroid     : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            retrofit      : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-            gson          : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
-            roomRuntime   : "androidx.room:room-runtime:${archRoomVersion}",
-            roomCompiler  : "androidx.room:room-compiler:${archRoomVersion}",
-            roomRxJava    : "androidx.room:room-rxjava2:${archRoomVersion}"
+            daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger         : "com.google.dagger:dagger:${daggerVersion}",
+            rxJava         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid      : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            retrofit       : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            gson           : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            retrofitAdapter: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            roomRuntime    : "androidx.room:room-runtime:${archRoomVersion}",
+            roomCompiler   : "androidx.room:room-compiler:${archRoomVersion}",
+            roomRxJava     : "androidx.room:room-rxjava2:${archRoomVersion}"
     ]
 
     dataTestDependencies = [

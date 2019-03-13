@@ -1,9 +1,9 @@
 package com.kaleb.data.main.repository;
 
 import com.kaleb.data.Source;
+import com.kaleb.data.main.mapper.MainMapper;
 import com.kaleb.data.main.repository.source.MainEntityData;
 import com.kaleb.data.main.repository.source.MainEntityDataFactory;
-import com.kaleb.data.main.repository.source.model.result.MainResult;
 import com.kaleb.domain.main.model.PokemonResponse;
 import com.kaleb.domain.main.repository.MainRepository;
 
@@ -11,8 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
 
 /**
  * @author Billy Kaleb Hananto (billy.hananto@dana.id)
@@ -23,24 +21,24 @@ public class MainEntityRepository implements MainRepository {
 
     private final MainEntityDataFactory mainEntityDataFactory;
 
+    private MainMapper mainMapper;
+
     @Inject
-    public MainEntityRepository(MainEntityDataFactory mainEntityDataFactory) {
+    public MainEntityRepository(MainEntityDataFactory mainEntityDataFactory,
+        MainMapper mainMapper) {
         this.mainEntityDataFactory = mainEntityDataFactory;
+        this.mainMapper = mainMapper;
     }
 
     @Override
     public Observable<PokemonResponse> observablePokemonResponse() {
-        return createData().observableMock().flatMap(
-            (Function<MainResult, ObservableSource<PokemonResponse>>)
-                mainResult -> {
-                    PokemonResponse pokemonResponse = new PokemonResponse();
-                    pokemonResponse.setHelloWorld(mainResult.getDummy());
-                    return Observable.just(pokemonResponse);
-                });
+        return createData().observablePokemon().flatMap(
+            pokeResult -> Observable.just(mainMapper.transform(pokeResult))
+        );
     }
 
     private MainEntityData createData() {
-        return mainEntityDataFactory.createData(Source.MOCK);
+        return mainEntityDataFactory.createData(Source.NETWORK);
     }
 }
 

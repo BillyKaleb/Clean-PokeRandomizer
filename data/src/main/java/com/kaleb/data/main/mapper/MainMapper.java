@@ -1,6 +1,6 @@
 package com.kaleb.data.main.mapper;
 
-import com.kaleb.data.main.repository.source.model.result.MainResult;
+import com.kaleb.data.main.repository.source.model.result.PokeResult;
 import com.kaleb.domain.main.model.PokemonResponse;
 
 import javax.inject.Inject;
@@ -14,12 +14,22 @@ import javax.inject.Singleton;
 public class MainMapper {
 
     @Inject
-    public MainMapper(){
+    public MainMapper() {
 
     }
 
-    public PokemonResponse transform(MainResult mainResult) {
-        //TODO(Billy Kaleb) : Changes from null to proper mapper
-        return null;
+    public PokemonResponse transform(PokeResult pokeResult) {
+        PokemonResponse pokeResponse = null;
+
+        if (pokeResult != null) {
+            pokeResponse = new PokemonResponse();
+            pokeResponse.setPokemonName(pokeResult.getName());
+            pokeResponse.setPokemonId(pokeResult.getId());
+            pokeResponse.setPokemonHeight(pokeResult.getHeight());
+            pokeResponse.setPokemonWeight(pokeResult.getWeight());
+            pokeResponse.setPokemonFrontLookSprite(pokeResult.getSprites().getFrontDefault());
+        }
+
+        return pokeResponse;
     }
 }
