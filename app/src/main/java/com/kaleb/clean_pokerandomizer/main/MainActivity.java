@@ -6,9 +6,16 @@ import com.kaleb.clean_pokerandomizer.di.components.DaggerMainComponent;
 import com.kaleb.clean_pokerandomizer.di.components.MainComponent;
 import com.kaleb.clean_pokerandomizer.di.modules.MainModule;
 
+import android.widget.TextView;
+
 import javax.inject.Inject;
 
+import butterknife.BindView;
+
 public class MainActivity extends BaseActivity implements MainContract.View {
+
+    @BindView(R.id.tv_main)
+    TextView tvMain;
 
     @Inject
     MainContract.Presenter mainPresenter;
@@ -23,6 +30,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public void init() {
         initInjector();
+        mainPresenter.getFromData();
     }
 
     private void initInjector() {
@@ -51,5 +59,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public void onError(String errorMessage) {
 
+    }
+
+    @Override
+    public void setText(String text) {
+        tvMain.setText(text);
     }
 }

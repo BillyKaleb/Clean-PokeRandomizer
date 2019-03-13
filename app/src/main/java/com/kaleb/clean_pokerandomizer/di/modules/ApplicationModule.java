@@ -1,5 +1,12 @@
 package com.kaleb.clean_pokerandomizer.di.modules;
 
+import com.kaleb.clean_pokerandomizer.UIThread;
+import com.kaleb.data.JobExecutor;
+import com.kaleb.data.main.repository.MainEntityRepository;
+import com.kaleb.domain.PostExecutionThread;
+import com.kaleb.domain.ThreadExecutor;
+import com.kaleb.domain.main.repository.MainRepository;
+
 import android.app.Application;
 import android.content.Context;
 
@@ -31,5 +38,23 @@ public class ApplicationModule {
     @Singleton
     Application provideApplication() {
         return application;
+    }
+
+    @Provides
+    @Singleton
+    ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
+        return jobExecutor;
+    }
+
+    @Provides
+    @Singleton
+    PostExecutionThread providePostExecutionThread(UIThread uiThread) {
+        return uiThread;
+    }
+
+    @Provides
+    @Singleton
+    MainRepository provideMainRepository(MainEntityRepository mainEntityRepository) {
+        return mainEntityRepository;
     }
 }

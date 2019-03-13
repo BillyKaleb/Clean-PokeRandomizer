@@ -9,10 +9,10 @@ import com.kaleb.clean_pokerandomizer.base.AbstractContract;
 public interface MainContract {
 
     interface View extends AbstractContract.AbstractView {
-
+        void setText(String text);
     }
 
     interface Presenter extends AbstractContract.AbstractPresenter {
-
+         void getFromData();
     }
 }

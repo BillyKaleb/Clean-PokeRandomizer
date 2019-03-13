@@ -5,6 +5,9 @@ import com.kaleb.clean_pokerandomizer.base.BaseActivity;
 import com.kaleb.clean_pokerandomizer.di.modules.ApiModule;
 import com.kaleb.clean_pokerandomizer.di.modules.ApplicationModule;
 import com.kaleb.clean_pokerandomizer.di.modules.NetworkModule;
+import com.kaleb.domain.PostExecutionThread;
+import com.kaleb.domain.ThreadExecutor;
+import com.kaleb.domain.main.repository.MainRepository;
 
 import android.app.Application;
 import android.content.Context;
@@ -33,4 +36,10 @@ public interface ApplicationComponent {
     Context context();
 
     Application application();
+
+    ThreadExecutor threadExecutor();
+
+    PostExecutionThread postExecutionThread();
+
+    MainRepository mainRepository();
 }
