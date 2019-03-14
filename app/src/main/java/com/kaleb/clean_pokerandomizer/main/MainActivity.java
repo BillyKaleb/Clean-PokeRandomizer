@@ -14,8 +14,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-import static java.security.AccessController.getContext;
-
 public class MainActivity extends BaseActivity implements MainContract.View {
 
     @BindView(R.id.iv_sprite)

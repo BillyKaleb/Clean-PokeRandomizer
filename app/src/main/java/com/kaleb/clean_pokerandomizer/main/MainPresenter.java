@@ -42,7 +42,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void getFromData() {
         getPokemonInteractor
-            .execute(getPokemonResponse(), GetPokemonInteractor.Params.getPokemonById(147));
+            .execute(getPokemonResponse(), GetPokemonInteractor.Params.getPokemonById(77));
     }
 
     private DefaultObserver<PokemonResponse> getPokemonResponse() {

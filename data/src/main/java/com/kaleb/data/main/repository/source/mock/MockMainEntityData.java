@@ -26,7 +26,7 @@ public class MockMainEntityData implements MainEntityData {
     private PokeResult dummyPokeResult() {
         PokeResult pokeResult = new PokeResult();
         pokeResult.setName("Yorushika");
-        pokeResult.setId(999);
+        pokeResult.setId(99999);
         pokeResult.setHeight(30);
         pokeResult.setWeight(200);
         pokeResult.setSprites(sprites());
@@ -35,7 +35,7 @@ public class MockMainEntityData implements MainEntityData {
 
     private Sprites sprites() {
         Sprites sprites = new Sprites();
-        sprites.setFrontDefault("Front Def");
+        sprites.setFrontDefault("http://mikudb.moe/wp-content/uploads/2018/08/Cover.jpg");
         sprites.setBackDefault("Back Def");
         sprites.setBackFemale("Back Fem");
         sprites.setBackShiny("Back Shin");
