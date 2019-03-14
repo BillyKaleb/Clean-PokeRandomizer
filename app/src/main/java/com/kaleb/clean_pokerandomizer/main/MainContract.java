@@ -15,6 +15,6 @@ public interface MainContract {
     }
 
     interface Presenter extends AbstractContract.AbstractPresenter {
-         void getFromData();
+         void getFromData(int pokeId);
     }
 }

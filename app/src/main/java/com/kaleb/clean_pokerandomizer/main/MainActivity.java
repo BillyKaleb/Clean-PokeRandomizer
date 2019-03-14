@@ -7,14 +7,25 @@ import com.kaleb.clean_pokerandomizer.di.components.DaggerMainComponent;
 import com.kaleb.clean_pokerandomizer.di.components.MainComponent;
 import com.kaleb.clean_pokerandomizer.di.modules.MainModule;
 
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
+
+    @BindView(R.id.btn_pokeid)
+    Button btnPokeid;
+
+    @BindView(R.id.et_pokeid)
+    EditText etPokeid;
 
     @BindView(R.id.iv_sprite)
     ImageView ivSprite;
@@ -44,7 +55,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public void init() {
         initInjector();
-        mainPresenter.getFromData();
+        mainPresenter.getFromData(151);
     }
 
     private void initInjector() {
@@ -90,4 +101,12 @@ public class MainActivity extends BaseActivity implements MainContract.View {
             .load(url)
             .into(ivSprite);
     }
+
+    @OnClick(R.id.btn_pokeid)
+    public void btnPokeidOnClick(View view) {
+        if (!TextUtils.isEmpty(etPokeid.getText().toString())) {
+            mainPresenter.getFromData(Integer.valueOf(etPokeid.getText().toString()));
+        }
+    }
+
 }
