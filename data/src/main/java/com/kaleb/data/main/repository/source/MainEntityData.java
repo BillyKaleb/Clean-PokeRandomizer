@@ -1,5 +1,6 @@
 package com.kaleb.data.main.repository.source;
 
+import com.kaleb.data.main.repository.source.local.entity.LocalMainEntity;
 import com.kaleb.data.main.repository.source.model.result.PokeResult;
 
 import io.reactivex.Observable;
@@ -10,5 +11,7 @@ import io.reactivex.Observable;
  */
 public interface MainEntityData {
 
-    Observable<PokeResult> observablePokemon();
+    Observable<PokeResult> getObservablePokemon();
+
+    Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity);
 }

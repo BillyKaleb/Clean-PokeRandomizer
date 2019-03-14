@@ -7,6 +7,8 @@ import com.kaleb.data.main.repository.source.mock.MockMainEntityData;
 import com.kaleb.data.main.repository.source.network.MainAPI;
 import com.kaleb.data.main.repository.source.network.NetworkMainEntityData;
 
+import android.content.Context;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -19,8 +21,11 @@ public class MainEntityDataFactory extends AbstractEntityDataFactory {
 
     private final MainAPI mainAPI;
 
+    private final Context context;
+
     @Inject
-    public MainEntityDataFactory(MainAPI mainAPI) {
+    public MainEntityDataFactory(Context context, MainAPI mainAPI) {
+        this.context = context;
         this.mainAPI = mainAPI;
     }
 
@@ -29,7 +34,7 @@ public class MainEntityDataFactory extends AbstractEntityDataFactory {
         if (source.equals(Source.MOCK)) {
             return new MockMainEntityData();
         } else if (source.equals(Source.LOCAL)) {
-            return new LocalMainEntityData();
+            return new LocalMainEntityData(context);
         } else {
             return new NetworkMainEntityData(mainAPI);
         }

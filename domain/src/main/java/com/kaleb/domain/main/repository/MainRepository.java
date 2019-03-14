@@ -11,4 +11,7 @@ import io.reactivex.Observable;
 public interface MainRepository {
 
     Observable<PokemonResponse> observablePokemonResponse();
+
+    Observable<Boolean> saveToLocalPokemonResponse(String name, int id, int weight, int height,
+        String frontSprite);
 }

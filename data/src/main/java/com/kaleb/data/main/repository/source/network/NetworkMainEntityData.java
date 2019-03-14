@@ -1,6 +1,7 @@
 package com.kaleb.data.main.repository.source.network;
 
 import com.kaleb.data.main.repository.source.MainEntityData;
+import com.kaleb.data.main.repository.source.local.entity.LocalMainEntity;
 import com.kaleb.data.main.repository.source.model.result.PokeResult;
 
 import io.reactivex.Observable;
@@ -18,7 +19,12 @@ public class NetworkMainEntityData implements MainEntityData {
     }
 
     @Override
-    public Observable<PokeResult> observablePokemon() {
-        return mainAPI.getPokemon(50).toObservable();
+    public Observable<PokeResult> getObservablePokemon() {
+        return mainAPI.getPokemon(70).toObservable();
+    }
+
+    @Override
+    public Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity) {
+        return null;
     }
 }

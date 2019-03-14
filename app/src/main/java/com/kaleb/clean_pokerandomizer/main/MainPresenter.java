@@ -3,6 +3,7 @@ package com.kaleb.clean_pokerandomizer.main;
 import com.kaleb.clean_pokerandomizer.di.PerActivity;
 import com.kaleb.domain.DefaultObserver;
 import com.kaleb.domain.main.interactor.GetPokemonInteractor;
+import com.kaleb.domain.main.interactor.SaveToLocalPokemonInteractor;
 import com.kaleb.domain.main.model.PokemonResponse;
 
 import android.content.Context;
@@ -18,16 +19,19 @@ public class MainPresenter implements MainContract.Presenter {
 
     private final GetPokemonInteractor getPokemonInteractor;
 
+    private final SaveToLocalPokemonInteractor saveToLocalPokemonInteractor;
+
     private final MainContract.View view;
 
     private Context context;
 
     @Inject
     public MainPresenter(GetPokemonInteractor getPokemonInteractor, Context context,
-        MainContract.View view) {
+        MainContract.View view, SaveToLocalPokemonInteractor saveToLocalPokemonInteractor) {
         this.getPokemonInteractor = getPokemonInteractor;
         this.context = context;
         this.view = view;
+        this.saveToLocalPokemonInteractor = saveToLocalPokemonInteractor;
     }
 
     @Override
@@ -48,11 +52,21 @@ public class MainPresenter implements MainContract.Presenter {
                 if (pokemonResponse.getPokemonName() != null) {
                     view.setText(pokemonResponse.getPokemonName());
                 }
+                saveToLocalPokemonInteractor.execute(new DefaultObserver<Boolean>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        //TODO (Billy Kaleb Hananto) : Fill the error handler
+                    }
+                }, SaveToLocalPokemonInteractor.Params
+                    .savePokemonToLocal(pokemonResponse.getPokemonName(),
+                        pokemonResponse.getPokemonId(), pokemonResponse.getPokemonHeight(),
+                        pokemonResponse.getPokemonWeight(),
+                        pokemonResponse.getPokemonFrontLookSprite()));
             }
 
             @Override
             public void onError(Throwable e) {
-                view.onError("Error from mock");
+                view.setText("Error on Data Passed to Presenter!");
                 view.dismissProgress();
             }
 

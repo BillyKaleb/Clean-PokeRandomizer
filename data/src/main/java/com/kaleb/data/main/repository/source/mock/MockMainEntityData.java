@@ -1,6 +1,7 @@
 package com.kaleb.data.main.repository.source.mock;
 
 import com.kaleb.data.main.repository.source.MainEntityData;
+import com.kaleb.data.main.repository.source.local.entity.LocalMainEntity;
 import com.kaleb.data.main.repository.source.model.Sprites;
 import com.kaleb.data.main.repository.source.model.result.PokeResult;
 
@@ -13,11 +14,16 @@ import io.reactivex.Observable;
 public class MockMainEntityData implements MainEntityData {
 
     @Override
-    public Observable<PokeResult> observablePokemon() {
+    public Observable<PokeResult> getObservablePokemon() {
         return Observable.just(dummyPokeResult());
     }
 
-    public PokeResult dummyPokeResult() {
+    @Override
+    public Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity) {
+        return null;
+    }
+
+    private PokeResult dummyPokeResult() {
         PokeResult pokeResult = new PokeResult();
         pokeResult.setName("Yorushika");
         pokeResult.setId(999);
@@ -27,7 +33,7 @@ public class MockMainEntityData implements MainEntityData {
         return pokeResult;
     }
 
-    public Sprites sprites() {
+    private Sprites sprites() {
         Sprites sprites = new Sprites();
         sprites.setFrontDefault("Front Def");
         sprites.setBackDefault("Back Def");
