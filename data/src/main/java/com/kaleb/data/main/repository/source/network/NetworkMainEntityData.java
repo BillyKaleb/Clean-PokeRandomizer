@@ -19,12 +19,12 @@ public class NetworkMainEntityData implements MainEntityData {
     }
 
     @Override
-    public Observable<PokeResult> getObservablePokemon() {
-        return mainAPI.getPokemon(70).toObservable();
+    public Observable<PokeResult> getObservablePokemon(int pokeId) {
+        return mainAPI.getPokemon(pokeId).toObservable();
     }
 
     @Override
-    public Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity) {
+    public Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity, int pokeId) {
         return null;
     }
 }

@@ -35,9 +35,18 @@ public class MainEntityRepository implements MainRepository {
         this.mainMapper = mainMapper;
     }
 
+    private MainEntityData createData(int pokeId) {
+        if (mainEntityDataFactory.createData(Source.LOCAL).getObservablePokemon(pokeId) != null) {
+            Log.d("DebugCheck", "createData: Local Called!");
+            return mainEntityDataFactory.createData(Source.LOCAL);
+        }
+        Log.d("DebugCheck", "createData: Network Called!");
+        return mainEntityDataFactory.createData(Source.NETWORK);
+    }
+
     @Override
-    public Observable<PokemonResponse> observablePokemonResponse() {
-        return createData().getObservablePokemon().flatMap(
+    public Observable<PokemonResponse> observablePokemonResponse(int pokeId) {
+        return createData(pokeId).getObservablePokemon(pokeId).flatMap(
             pokeResult -> Observable.just(mainMapper.transform(pokeResult))
         );
     }
@@ -47,7 +56,7 @@ public class MainEntityRepository implements MainRepository {
         int height, String frontSprite) {
         LocalMainEntity localMainEntity = new LocalMainEntity(height, id, name, frontSprite,
             weight);
-        return mainEntityDataFactory.createData(Source.LOCAL).saveObservablePokemon(localMainEntity)
+        return mainEntityDataFactory.createData(Source.LOCAL).saveObservablePokemon(localMainEntity, id)
             .flatMap(
                 (Function<Long, ObservableSource<Boolean>>) localMainId -> {
                     if (localMainId != null) {
@@ -55,15 +64,6 @@ public class MainEntityRepository implements MainRepository {
                     }
                     return Observable.just(false);
                 });
-    }
-
-    private MainEntityData createData() {
-        if (mainEntityDataFactory.createData(Source.LOCAL).getObservablePokemon() != null) {
-            Log.d("DebugCheck", "createData: Local Called!");
-            return mainEntityDataFactory.createData(Source.LOCAL);
-        }
-        Log.d("DebugCheck", "createData: Network Called!");
-        return mainEntityDataFactory.createData(Source.NETWORK);
     }
 }
 

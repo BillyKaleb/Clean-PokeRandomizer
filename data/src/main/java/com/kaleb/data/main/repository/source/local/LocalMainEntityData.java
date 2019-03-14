@@ -25,8 +25,8 @@ public class LocalMainEntityData extends BasePersistence implements MainEntityDa
     }
 
     @Override
-    public Observable<PokeResult> getObservablePokemon() {
-        LocalMainEntity localMainEntity = getDb().localMainDao().getLocalMainEntity(70);
+    public Observable<PokeResult> getObservablePokemon(int pokeId) {
+        LocalMainEntity localMainEntity = getDb().localMainDao().getLocalMainEntity(pokeId);
         if (localMainEntity == null) {
             return null;
         }
@@ -34,8 +34,8 @@ public class LocalMainEntityData extends BasePersistence implements MainEntityDa
     }
 
     @Override
-    public Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity) {
-        LocalMainEntity localMainEntitySaved = getDb().localMainDao().getLocalMainEntity(70);
+    public Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity, int pokeId) {
+        LocalMainEntity localMainEntitySaved = getDb().localMainDao().getLocalMainEntity(pokeId);
         Long result;
         if (!isExist(localMainEntitySaved)) {
             Log.d("DebugCheck", "saveObservablePokemon: Saved!");

@@ -14,12 +14,12 @@ import io.reactivex.Observable;
 public class MockMainEntityData implements MainEntityData {
 
     @Override
-    public Observable<PokeResult> getObservablePokemon() {
+    public Observable<PokeResult> getObservablePokemon(int pokeId) {
         return Observable.just(dummyPokeResult());
     }
 
     @Override
-    public Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity) {
+    public Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity, int pokeId) {
         return null;
     }
 

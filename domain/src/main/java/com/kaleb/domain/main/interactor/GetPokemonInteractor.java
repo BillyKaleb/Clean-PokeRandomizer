@@ -14,7 +14,7 @@ import io.reactivex.Observable;
  * @author Billy Kaleb Hananto (billy.hananto@dana.id)
  * @version GetPokemonInteractor, v 0.1 13/03/19 11.26 by Billy Kaleb Hananto
  */
-public class GetPokemonInteractor extends UseCase<PokemonResponse, Void> {
+public class GetPokemonInteractor extends UseCase<PokemonResponse, GetPokemonInteractor.Params> {
 
     private MainRepository mainRepository;
 
@@ -26,7 +26,20 @@ public class GetPokemonInteractor extends UseCase<PokemonResponse, Void> {
     }
 
     @Override
-    protected Observable<PokemonResponse> buildUseCaseObservable(Void aVoid) {
-        return mainRepository.observablePokemonResponse();
+    protected Observable<PokemonResponse> buildUseCaseObservable(Params params) {
+        return mainRepository.observablePokemonResponse(params.pokeId);
+    }
+
+    public static class Params {
+
+        private int pokeId;
+
+        private Params(int pokeId) {
+            this.pokeId = pokeId;
+        }
+
+        public static GetPokemonInteractor.Params getPokemonById(int pokeId) {
+            return new GetPokemonInteractor.Params(pokeId);
+        }
     }
 }

@@ -11,7 +11,7 @@ import io.reactivex.Observable;
  */
 public interface MainEntityData {
 
-    Observable<PokeResult> getObservablePokemon();
+    Observable<PokeResult> getObservablePokemon(int pokeId);
 
-    Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity);
+    Observable<Long> saveObservablePokemon(LocalMainEntity localMainEntity, int pokeId);
 }
