@@ -42,7 +42,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void getFromData() {
         getPokemonInteractor
-            .execute(getPokemonResponse(), GetPokemonInteractor.Params.getPokemonById(151));
+            .execute(getPokemonResponse(), GetPokemonInteractor.Params.getPokemonById(147));
     }
 
     private DefaultObserver<PokemonResponse> getPokemonResponse() {
@@ -50,8 +50,11 @@ public class MainPresenter implements MainContract.Presenter {
         return new DefaultObserver<PokemonResponse>() {
             @Override
             public void onNext(PokemonResponse pokemonResponse) {
-                if (pokemonResponse.getPokemonName() != null) {
-                    view.setText(pokemonResponse.getPokemonName());
+                if (pokemonResponse.getPokemonName() != null && pokemonResponse
+                    .getPokemonFrontLookSprite() != null) {
+                    view.displayImage(pokemonResponse.getPokemonFrontLookSprite());
+                    view.setText(pokemonResponse.getPokemonName(), pokemonResponse.getPokemonId(),
+                        pokemonResponse.getPokemonHeight(), pokemonResponse.getPokemonWeight());
                 }
                 saveToLocalPokemonInteractor.execute(new DefaultObserver<Boolean>() {
                     @Override
@@ -67,7 +70,6 @@ public class MainPresenter implements MainContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-                view.setText("Error on Data Passed to Presenter!");
                 view.dismissProgress();
             }
 

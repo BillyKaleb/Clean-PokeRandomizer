@@ -47,6 +47,8 @@ dependencies {
     implementation presentationDependencies.butterKnife
     implementation presentationDependencies.rxJava
     implementation presentationDependencies.rxAndroid
+    implementation presentationDependencies.glide
+    annotationProcessor presentationDependencies.glideCompiler
 
     // Test library
     androidTestImplementation presentationTestDependencies.mockito

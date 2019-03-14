@@ -1,24 +1,40 @@
 package com.kaleb.clean_pokerandomizer.main;
 
+import com.bumptech.glide.Glide;
 import com.kaleb.clean_pokerandomizer.R;
 import com.kaleb.clean_pokerandomizer.base.BaseActivity;
 import com.kaleb.clean_pokerandomizer.di.components.DaggerMainComponent;
 import com.kaleb.clean_pokerandomizer.di.components.MainComponent;
 import com.kaleb.clean_pokerandomizer.di.modules.MainModule;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivity extends BaseActivity implements MainContract.View {
 
-    @BindView(R.id.tv_main)
-    TextView tvMain;
+    @BindView(R.id.iv_sprite)
+    ImageView ivSprite;
 
     @Inject
     MainContract.Presenter mainPresenter;
+
+    @BindView(R.id.tv_pokeheight)
+    TextView tvPokeheight;
+
+    @BindView(R.id.tv_pokeid)
+    TextView tvPokeid;
+
+    @BindView(R.id.tv_pokename)
+    TextView tvPokename;
+
+    @BindView(R.id.tv_pokeweight)
+    TextView tvPokeweight;
 
     private MainComponent mainComponent;
 
@@ -62,7 +78,18 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     }
 
     @Override
-    public void setText(String text) {
-        tvMain.setText(text);
+    public void setText(String name, int id, int height, int weight) {
+        tvPokename.setText(name);
+        tvPokeid.setText(Integer.toString(id));
+        tvPokeheight.setText(Integer.toString(height));
+        tvPokeweight.setText(Integer.toString(weight));
+    }
+
+    @Override
+    public void displayImage(String url) {
+        Glide.with(this)
+            .asBitmap()
+            .load(url)
+            .into(ivSprite);
     }
 }
