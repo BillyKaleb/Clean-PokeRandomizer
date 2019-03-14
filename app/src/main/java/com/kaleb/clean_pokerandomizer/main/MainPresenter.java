@@ -8,6 +8,8 @@ import com.kaleb.domain.main.model.PokemonResponse;
 
 import android.content.Context;
 
+import java.util.Random;
+
 import javax.inject.Inject;
 
 /**
@@ -43,6 +45,14 @@ public class MainPresenter implements MainContract.Presenter {
     public void getFromData(int pokeId) {
         getPokemonInteractor
             .execute(getPokemonResponse(), GetPokemonInteractor.Params.getPokemonById(pokeId));
+    }
+
+    @Override
+    public void getRandomPokemonFromData() {
+        Random random = new Random();
+        int randomPokeid = random.nextInt(152);
+        getPokemonInteractor.execute(getPokemonResponse(),
+            GetPokemonInteractor.Params.getPokemonById(randomPokeid + 1));
     }
 
     private DefaultObserver<PokemonResponse> getPokemonResponse() {

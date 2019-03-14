@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public void init() {
         initInjector();
-        mainPresenter.getFromData(151);
+        mainPresenter.getRandomPokemonFromData();
     }
 
     private void initInjector() {
