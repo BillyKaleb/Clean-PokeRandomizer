@@ -9,14 +9,16 @@ import com.kaleb.clean_pokerandomizer.base.AbstractContract;
 public interface MainContract {
 
     interface View extends AbstractContract.AbstractView {
+
         void setText(String name, int id, int height, int weight);
 
         void displayImage(String url);
     }
 
     interface Presenter extends AbstractContract.AbstractPresenter {
-         void getFromData(int pokeId);
 
-         void getRandomPokemonFromData();
+        void getFromData(int pokeId);
+
+        void getRandomPokemonFromData();
     }
 }

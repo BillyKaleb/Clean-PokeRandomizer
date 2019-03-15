@@ -7,7 +7,6 @@ import com.kaleb.data.main.repository.source.model.Sprites;
 import com.kaleb.data.main.repository.source.model.result.PokeResult;
 
 import android.content.Context;
-import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -38,20 +37,15 @@ public class LocalMainEntityData extends BasePersistence implements MainEntityDa
         LocalMainEntity localMainEntitySaved = getDb().localMainDao().getLocalMainEntity(pokeId);
         Long result;
         if (!isExist(localMainEntitySaved)) {
-            Log.d("DebugCheck", "saveObservablePokemon: Saved!");
             result = getDb().localMainDao().insertLocalMain(localMainEntity);
         } else {
-            Log.d("DebugCheck", "saveObservablePokemon: Updated!");
             result = (long) getDb().localMainDao().updateLocalMain(localMainEntity);
         }
         return Observable.just(result);
     }
 
     private boolean isExist(LocalMainEntity localMainEntity) {
-        if (localMainEntity == null) {
-            return false;
-        }
-        return true;
+        return localMainEntity != null;
     }
 
     private PokeResult localPokeResultMapper(LocalMainEntity localMainEntity) {

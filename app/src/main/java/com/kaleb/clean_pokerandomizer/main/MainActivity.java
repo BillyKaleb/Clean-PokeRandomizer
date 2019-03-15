@@ -73,17 +73,21 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void showProgress() {
-
+        booleanEnableButton(false);
     }
 
     @Override
     public void dismissProgress() {
-
+        booleanEnableButton(true);
     }
 
     @Override
     public void onError(String errorMessage) {
 
+    }
+
+    private void booleanEnableButton(Boolean buttonEnabled) {
+        btnPokeid.setEnabled(buttonEnabled);
     }
 
     @Override
@@ -104,9 +108,9 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @OnClick(R.id.btn_pokeid)
     public void btnPokeidOnClick(View view) {
-        if (!TextUtils.isEmpty(etPokeid.getText().toString())) {
-            mainPresenter.getFromData(Integer.valueOf(etPokeid.getText().toString()));
+        int bntText = Integer.valueOf(etPokeid.getText().toString());
+        if (!TextUtils.isEmpty(etPokeid.getText().toString()) && bntText < 153 && bntText > 0) {
+            mainPresenter.getFromData(bntText);
         }
     }
-
 }

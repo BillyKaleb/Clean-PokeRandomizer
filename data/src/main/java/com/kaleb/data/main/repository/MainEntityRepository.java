@@ -8,8 +8,6 @@ import com.kaleb.data.main.repository.source.local.entity.LocalMainEntity;
 import com.kaleb.domain.main.model.PokemonResponse;
 import com.kaleb.domain.main.repository.MainRepository;
 
-import android.util.Log;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -35,15 +33,6 @@ public class MainEntityRepository implements MainRepository {
         this.mainMapper = mainMapper;
     }
 
-    private MainEntityData createData(int pokeId) {
-        if (mainEntityDataFactory.createData(Source.LOCAL).getObservablePokemon(pokeId) != null) {
-            Log.d("DebugCheck", "createData: Local Called!");
-            return mainEntityDataFactory.createData(Source.LOCAL);
-        }
-        Log.d("DebugCheck", "createData: Network Called!");
-        return mainEntityDataFactory.createData(Source.NETWORK);
-    }
-
     @Override
     public Observable<PokemonResponse> observablePokemonResponse(int pokeId) {
         return createData(pokeId).getObservablePokemon(pokeId).flatMap(
@@ -51,12 +40,20 @@ public class MainEntityRepository implements MainRepository {
         );
     }
 
+    private MainEntityData createData(int pokeId) {
+        if (mainEntityDataFactory.createData(Source.LOCAL).getObservablePokemon(pokeId) != null) {
+            return mainEntityDataFactory.createData(Source.LOCAL);
+        }
+        return mainEntityDataFactory.createData(Source.NETWORK);
+    }
+
     @Override
     public Observable<Boolean> saveToLocalPokemonResponse(String name, int id, int weight,
         int height, String frontSprite) {
         LocalMainEntity localMainEntity = new LocalMainEntity(height, id, name, frontSprite,
             weight);
-        return mainEntityDataFactory.createData(Source.LOCAL).saveObservablePokemon(localMainEntity, id)
+        return mainEntityDataFactory.createData(Source.LOCAL)
+            .saveObservablePokemon(localMainEntity, id)
             .flatMap(
                 (Function<Long, ObservableSource<Boolean>>) localMainId -> {
                     if (localMainId != null) {
