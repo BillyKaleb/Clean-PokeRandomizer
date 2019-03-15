@@ -5,6 +5,7 @@ import com.kaleb.data.main.mapper.MainMapper;
 import com.kaleb.data.main.repository.source.MainEntityData;
 import com.kaleb.data.main.repository.source.MainEntityDataFactory;
 import com.kaleb.data.main.repository.source.local.entity.LocalMainEntity;
+import com.kaleb.data.main.repository.source.model.result.PokeResult;
 import com.kaleb.domain.main.model.PokemonResponse;
 import com.kaleb.domain.main.repository.MainRepository;
 
@@ -13,6 +14,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
 import io.reactivex.functions.Function;
 
 /**
@@ -35,15 +37,21 @@ public class MainEntityRepository implements MainRepository {
 
     @Override
     public Observable<PokemonResponse> observablePokemonResponse(int pokeId) {
-        return createData(pokeId).getObservablePokemon(pokeId).flatMap(
-            pokeResult -> Observable.just(mainMapper.transform(pokeResult))
+        return createLocalData().getObservablePokemon(pokeId)
+            .onErrorResumeNext(defaultIfEmpty(pokeId))
+            .flatMap(pokeResult -> Observable.just(mainMapper.transform(pokeResult))
         );
     }
 
-    private MainEntityData createData(int pokeId) {
-        if (mainEntityDataFactory.createData(Source.LOCAL).getObservablePokemon(pokeId) != null) {
-            return mainEntityDataFactory.createData(Source.LOCAL);
-        }
+    private Function<Throwable, ObservableSource<PokeResult>> defaultIfEmpty(int pokeId){
+        return throwable -> createNetworkData().getObservablePokemon(pokeId);
+    }
+
+    private MainEntityData createLocalData(){
+        return mainEntityDataFactory.createData(Source.LOCAL);
+    }
+
+    private MainEntityData createNetworkData(){
         return mainEntityDataFactory.createData(Source.NETWORK);
     }
 

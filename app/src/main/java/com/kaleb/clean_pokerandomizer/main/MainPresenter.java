@@ -51,9 +51,9 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void getRandomPokemonFromData() {
         Random random = new Random();
-        int randomPokeid = random.nextInt(152);
+        int randomPokeid = random.nextInt(152) + 1;
         getPokemonInteractor.execute(getPokemonResponse(),
-            GetPokemonInteractor.Params.getPokemonById(randomPokeid + 1));
+            GetPokemonInteractor.Params.getPokemonById(randomPokeid));
     }
 
     private DefaultObserver<PokemonResponse> getPokemonResponse() {
